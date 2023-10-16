@@ -8,7 +8,7 @@
       href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" /> 
+    <link rel="stylesheet" href="styles.css" />
     <script src="https://unpkg.com/vue@next" defer></script>
     <script src="app.js" defer></script>
   </head>
@@ -34,17 +34,27 @@
         <h3 v-if="winner === 'monster'">You Lost</h3>
         <h3 v-else-if="winner ==='player'">You won</h3>
         <h3 v-else>It is a draw</h3>
-
       </section>
       <section id="controls">
         <button @click="attackMonster">ATTACK</button>
-        <button @click="specialAttackMonster" :disabled="mayUseSpecialAttack" >SPECIAL ATTACK</button>
+        <button @click="specialAttackMonster" :disabled="mayUseSpecialAttack">
+          SPECIAL ATTACK
+        </button>
         <button @click="healPlayer">HEAL</button>
         <button>SURRENDER</button>
       </section>
       <section id="log" class="container">
         <h2>Battle Log</h2>
-        <ul></ul>
+        <ul>
+          <li v-for="logMessage in logMessages">
+            <span
+              >{{logMessage.actionBy === 'player' ? 'Player' : 'Monster'}}</span
+            >
+            <span v-if="logMessage.actionType === 'heal'">
+              heals himself for <span>{{logMessage.actionValue}}</span>
+            </span>
+          </li>
+        </ul>
       </section>
     </div>
   </body>
